@@ -1,4 +1,4 @@
-package com.olga_kondratenko.cheeseandsausage.ii.education;
+package com.olga_kondratenko.cheeseandsausage.ii.neiroii.education;
 
 
 import com.olga_kondratenko.cheeseandsausage.constants.Sign;
@@ -6,7 +6,6 @@ import com.olga_kondratenko.cheeseandsausage.game.game_data.Moves;
 import com.olga_kondratenko.cheeseandsausage.ii.II;
 import com.olga_kondratenko.cheeseandsausage.ii.NeiroII;
 import com.olga_kondratenko.cheeseandsausage.ii.RandomII;
-import com.olga_kondratenko.cheeseandsausage.model.Coordinates;
 import com.olga_kondratenko.cheeseandsausage.model.Field;
 
 import java.util.ArrayList;
@@ -18,7 +17,6 @@ import static com.olga_kondratenko.cheeseandsausage.constants.EducationConstants
 import static com.olga_kondratenko.cheeseandsausage.constants.EducationConstants.MUTATION_SIZE;
 import static com.olga_kondratenko.cheeseandsausage.constants.EducationConstants.POPULATION_SIZE;
 import static com.olga_kondratenko.cheeseandsausage.constants.FieldConstants.FIELD_MAX_MOVES;
-import static com.olga_kondratenko.cheeseandsausage.constants.GameConstants.DROW;
 import static com.olga_kondratenko.cheeseandsausage.constants.Sign.CIRCLE;
 import static com.olga_kondratenko.cheeseandsausage.constants.Sign.FREE;
 import static com.olga_kondratenko.cheeseandsausage.constants.Sign.KROSS;
@@ -66,7 +64,7 @@ public class GeneticNeiroII {
     }
 
     /*public void check(){
-        Moves.educationWinnerEffect=0;
+        Move.educationWinnerEffect=0;
         System.out.println("start generation check ");
         for (int firstIndex =0; firstIndex<POPULATION_SIZE; firstIndex++ ){
             for (int secondIndex =0; secondIndex<POPULATION_SIZE; secondIndex++ ){

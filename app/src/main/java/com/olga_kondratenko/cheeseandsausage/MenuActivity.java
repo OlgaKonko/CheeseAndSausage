@@ -6,9 +6,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
 import com.olga_kondratenko.cheeseandsausage.env.Environment;
-import com.olga_kondratenko.cheeseandsausage.ii.education.EducationData;
+import com.olga_kondratenko.cheeseandsausage.ii.neiroii.education.EducationData;
 
-import static com.olga_kondratenko.cheeseandsausage.constants.ActivityDataKey.GAME_MOD;
 import static com.olga_kondratenko.cheeseandsausage.constants.GameModes.CvC;
 import static com.olga_kondratenko.cheeseandsausage.constants.GameModes.CvCE;
 import static com.olga_kondratenko.cheeseandsausage.constants.GameModes.PvC;

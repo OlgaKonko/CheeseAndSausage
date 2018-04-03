@@ -2,7 +2,7 @@ package com.olga_kondratenko.cheeseandsausage.game;
 
 import android.os.CountDownTimer;
 
-import com.olga_kondratenko.cheeseandsausage.ii.education.GeneticNeiroII;
+import com.olga_kondratenko.cheeseandsausage.ii.neiroii.education.GeneticNeiroII;
 
 public class CvCGeneticEducation extends Game{
     private GeneticNeiroII geneticNeiroII;
