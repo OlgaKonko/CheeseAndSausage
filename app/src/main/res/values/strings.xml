@@ -1,0 +1,23 @@
+<resources>
+    <string name="short_app_name">Che&amp;Cra</string>
+    <string name="app_name">Cheese And Cracker</string>
+    <string name="pvp_button">Player Vs Player</string>
+    <string name="pve_button">Player Vs Computer</string>
+    <string name="cvc_button">Computer Vs Computer</string>
+    <string name="education_button">Education</string>
+    <string name="description">Select game mod:</string>
+    <string name="education_results">education start</string>
+    <string name="results">%d games | %d draws \n%f moves average</string>
+    <string name="generic_results">%d efficiency \n%d%% wins</string>
+    <string name="stop_button">Stop</string>
+    <string name="emblem">Game main emblem</string>
+    <string name="statistic">%d wins|%d lose \n%d at all</string>
+    <string name="repeat_button">Repeat?</string>
+    <string name="congratulation">Game End</string>
+    <string name="player_win">Congratulation! %s win!</string>
+    <string name="player_lose">Oh %s lose!</string>
+    <string name="fail_congratulation">Oh, you lose</string>
+    <string name="drow_congratulation">Friendship win</string>
+    <string name="continue_button">One more?</string>
+    <string name="menu_button">To menu?</string>
+</resources>
