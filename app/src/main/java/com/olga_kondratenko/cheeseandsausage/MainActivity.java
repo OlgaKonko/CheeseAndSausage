@@ -37,13 +37,13 @@ public class MainActivity extends Activity implements GameActivity{
     public ImageView[][] buttons;
     private int fieldSize;
     private TableLayout tableLayout;
+    boolean gameStoped;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-       // System.out.println("!!!"+gameMode.name());
         tableLayout = findViewById(R.id.gameField);
         switch (gameMode){
             case PvP:{
@@ -67,6 +67,7 @@ public class MainActivity extends Activity implements GameActivity{
         fieldSize = game.getFieldSize();
         buttons = new ImageView[fieldSize][fieldSize];
         drawField();
+        gameStoped = false;
     }
 
     public void onResume() {
@@ -76,21 +77,18 @@ public class MainActivity extends Activity implements GameActivity{
 
     public void onClick(View view) {
 
-        switch (view.getId()){
-            case R.id.addition_menu_button:
-            case R.id.player_menu_button:{
-                    Intent intent = new Intent(this, MenuActivity.class);
-                    startActivity(intent);
-                    finish();
-                break;
-            }
-            case R.id.addition_repeat_button:
-            case R.id.player_repeat_button:{
-                all++;
-                recreate();
-                break;
-            }
+        if (view.getId() == R.id.addition_menu_button || view.getId() == R.id.player_menu_button){
+            Intent intent = new Intent(this, MenuActivity.class);
+            startActivity(intent);
+            gameStoped = true;
+            finish();
         }
+
+        if (view.getId() == R.id.addition_repeat_button || view.getId() == R.id.player_repeat_button){
+            all++;
+            recreate();
+        }
+
     }
 
     public void showPvPField(){
@@ -114,6 +112,7 @@ public class MainActivity extends Activity implements GameActivity{
     }
 
     public void endGame(int winner) {
+        if (!gameStoped){
         Intent intent;
         switch (gameMode){
             case PvP:{
@@ -134,7 +133,7 @@ public class MainActivity extends Activity implements GameActivity{
 
         }
         startActivity(intent);
-        finish();
+        finish();}
     }
 
     @Override

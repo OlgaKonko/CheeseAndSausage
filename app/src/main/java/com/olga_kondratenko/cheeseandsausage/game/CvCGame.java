@@ -5,6 +5,7 @@ import android.os.CountDownTimer;
 import com.olga_kondratenko.cheeseandsausage.ii.II;
 import com.olga_kondratenko.cheeseandsausage.ii.NeiroII;
 import com.olga_kondratenko.cheeseandsausage.ii.RandomII;
+import com.olga_kondratenko.cheeseandsausage.ii.WeightsII;
 import com.olga_kondratenko.cheeseandsausage.model.Coordinates;
 
 import static com.olga_kondratenko.cheeseandsausage.constants.GameConstants.DROW;
@@ -17,30 +18,30 @@ import static com.olga_kondratenko.cheeseandsausage.game.game_data.Statistic.win
 import static com.olga_kondratenko.cheeseandsausage.game.game_data.Moves.currentMoves;
 
 public class CvCGame extends Game{
-    private NeiroII firstIi;
-    private II secondIi;
+    private WeightsII firstIi;
+    private WeightsII secondIi;
     Coordinates move;
     boolean gameContinue = true;
     boolean firstPlayerTurn = true;
 
     public CvCGame() {
         super();
-        this.firstIi = new NeiroII(field, playerSign, "FirstPopulation0");
-        this.secondIi = new RandomII(field, anotherSign);
+        this.firstIi = new WeightsII(field, playerSign);
+        this.secondIi = new WeightsII(field, anotherSign);
     }
 
     @Override
     public void play(){
-        new CountDownTimer(10000, 100) {
+        new CountDownTimer(10, 1) {
             public void onTick(long millisUntilFinished) {
                 if (firstPlayerTurn){
-                    makeIIMove(firstIi, FIRST_PLAYER_WIN);
+                    makeWeightIIMove(firstIi, secondIi,FIRST_PLAYER_WIN);
                 }
                 else {
-                    makeIIMove(secondIi, SECOND_PLAYER_WIN);
+                    makeWeightIIMove(secondIi, firstIi, SECOND_PLAYER_WIN);
                 }
                 if (!gameContinue){
-                    System.out.println("game end");
+                   // System.out.println("game end");
                     cancel();
                     endGame();}
             }
@@ -52,6 +53,19 @@ public class CvCGame extends Game{
 
             }
         }.start();
+    }
+
+    public void makeWeightIIMove( WeightsII ii,  WeightsII anotherII, int expectedWinner){
+        currentMoves++;
+        move = ii.makeMove();
+        anotherII.setPlayerMove(move);
+        view.showMove(move.x, move.y, ii.iiSign);
+        if (field.checkGameEnding()) {
+            winner = (field.getWinnerSign() != FREE) ? expectedWinner : DROW;
+            gameContinue =false;
+        }
+        firstPlayerTurn = !firstPlayerTurn;
+
     }
 
     public void makeIIMove(II ii, int expectedWinner){

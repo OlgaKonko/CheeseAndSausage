@@ -25,6 +25,7 @@ public class MenuActivity extends AppCompatActivity {
     }
 
     public void startGame(View view) {
+        System.out.println("start game");
         Intent intent = new Intent(this, MainActivity.class);
         wins =0;
         loses =0;

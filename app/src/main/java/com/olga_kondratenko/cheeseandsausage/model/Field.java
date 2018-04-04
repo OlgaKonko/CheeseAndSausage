@@ -13,7 +13,7 @@ public class Field {
     public Sign[][] field;
     private boolean isGameEnd;
     private Sign gameResult;
-    private int filled;
+    public int filled;
     private int lastMoveX;
     private int lastMoveY;
 
@@ -52,7 +52,6 @@ public class Field {
 
     public boolean checkGameEnding (){
         isGameEnd = false;
-        //System.out.println("!!!!!!!!! start checking");
         if ((lastMoveY>=0)&&(lastMoveX>=0)){
         if (isFieldFilled()) {
             isGameEnd = true;

@@ -3,7 +3,8 @@ package com.olga_kondratenko.cheeseandsausage.constants;
 public enum Sign {
     KROSS('K'),
     CIRCLE('C'),
-    FREE('F');
+    FREE('F'),
+    TEST('T'),;
 
     private char simbol;
 

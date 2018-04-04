@@ -3,6 +3,7 @@ package com.olga_kondratenko.cheeseandsausage.game;
 import com.olga_kondratenko.cheeseandsausage.ii.II;
 import com.olga_kondratenko.cheeseandsausage.ii.NeiroII;
 import com.olga_kondratenko.cheeseandsausage.ii.RandomII;
+import com.olga_kondratenko.cheeseandsausage.ii.WeightsII;
 import com.olga_kondratenko.cheeseandsausage.model.Coordinates;
 
 import static com.olga_kondratenko.cheeseandsausage.constants.GameConstants.COMPUTER_WIN;
@@ -14,11 +15,11 @@ import static com.olga_kondratenko.cheeseandsausage.game.game_data.Statistic.los
 import static com.olga_kondratenko.cheeseandsausage.game.game_data.Statistic.wins;
 
 public class PvCGame extends Game {
-    private II ii;
+    private WeightsII ii;
 
     public PvCGame() {
         super();
-        this.ii = new NeiroII(field, anotherSign, "FirstPopulation0");
+        this.ii = new WeightsII(field, anotherSign);
     }
 
     @Override
@@ -35,9 +36,10 @@ public class PvCGame extends Game {
                 view.showGameEnd(winner);
             }
         }
-
+        System.out.println("Player move to "+x+" "+y);
+        ii.setPlayerMove(new Coordinates(x, y));
         Coordinates iiMove = ii.makeMove();
-
+        System.out.println("Computer move to "+iiMove.x+" "+iiMove.y);
         view.showMove(iiMove.x,iiMove.y, ii.iiSign);
         if (field.checkGameEnding()) {
             winner = (field.getWinnerSign() != FREE) ? COMPUTER_WIN : DROW;

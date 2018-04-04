@@ -7,18 +7,21 @@ import com.olga_kondratenko.cheeseandsausage.model.Field;
 
 public class WeightsII extends II {
 Predicator predicator;
-
+    Coordinates playerMove;
     public WeightsII(Field field, Sign sign) {
         super(field, sign);
         predicator = new Predicator(field, sign);
+        playerMove = new Coordinates(-1, -1);
     }
 
-    public void playerMakeMove(Coordinates playerMove){
-
+    public void setPlayerMove(Coordinates playerMove){
+        this.playerMove = playerMove;
     }
 
     @Override
     public Coordinates makeMove() {
-        return null;
+        Coordinates move = predicator.makeMove(playerMove);
+        field.makeMove(move.x, move.y,iiSign);
+       return move;
     }
 }

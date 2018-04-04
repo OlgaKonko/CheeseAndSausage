@@ -3,89 +3,106 @@ package com.olga_kondratenko.cheeseandsausage.ii.weightsII;
 import com.olga_kondratenko.cheeseandsausage.constants.Sign;
 import com.olga_kondratenko.cheeseandsausage.model.Field;
 
+import java.util.ArrayList;
+
 import static com.olga_kondratenko.cheeseandsausage.constants.FieldConstants.FIELD_LAST;
 import static com.olga_kondratenko.cheeseandsausage.constants.FieldConstants.FIELD_SIZE;
 import static com.olga_kondratenko.cheeseandsausage.constants.FieldConstants.WIN_SIZE;
+import static com.olga_kondratenko.cheeseandsausage.constants.Sign.CIRCLE;
 import static com.olga_kondratenko.cheeseandsausage.constants.Sign.FREE;
+import static com.olga_kondratenko.cheeseandsausage.constants.Sign.KROSS;
+import static com.olga_kondratenko.cheeseandsausage.constants.Sign.TEST;
+import static com.olga_kondratenko.cheeseandsausage.ii.weightsII.SignsPatterns.countString;
 
 public class MoveWeightChecker {
-    Field field; Move move; Sign sign;
+    Field field;
+    Move move;
+    Sign sign;
+    Sign enemySign;
+    int playerX;
+    int playerY;
 
     public MoveWeightChecker(Field field, Move move, Sign sign) {
         this.field = field;
         this.move = move;
         this.sign = sign;
+        enemySign = sign==KROSS? CIRCLE:KROSS;
+        playerX = move.coordinates.x;
+        playerY = move.coordinates.y;
     }
-    String[] symbols = new String[4];
-    public void checkGameEnding (){
-        int x = move.coordinates.x;
-        int y = move.coordinates.y;
-        if (field.field[x][y] == FREE){
+    ArrayList<String> symbols = new ArrayList<>(4);
+
+    public void checkWeights(){
+      //  System.out.println("Check Weights for "+playerX+" "+playerY);
+        if (field.field[playerX][playerY] != FREE){
 
         }
         else {
-            move.attackWeight = 0;
-            move.defenseWeight = 0;
-        }
-        //check move is free
-        //set comp move and count attack
-        //set player move and count attack
-        //set FREE
+            field.field[playerX][playerY] = TEST;
+            symbols.add(checkHorizontal());
+            symbols.add(checkVertical());
+            symbols.add(checkDiagonalDown());
+            symbols.add(checkDiagonalUp());
+            field.field[playerX][playerY] = FREE;
 
+            move.attackWeight = countWeight(sign);
+            move.defenseWeight = countWeight(enemySign);
+            move.countEffect();
+        }
     }
 
-    private int countWeight(Sign sign, int x, int y){
+    private int countWeight(Sign sign){
         int weight = 0;
-        field.field[x][y] = sign;
-        weight += checkString(sign,checkHorizontal(x),x);
-        weight += checkString(sign,checkVertical(y), y);
-        weight += checkString(sign,checkDiagonalDown(x,y));
-        weight += checkString(sign,checkDiagonalUp(x,y));
-        field.field[x][y] = FREE;
+        for (String s: symbols) {
+            weight += checkString(sign,s);
+        }
         return weight;
     }
 
-    private int checkString(Sign sign, String s, int index){
-        int points =0;
+    private int checkString(Sign sign, String s){
+        if (s.length()<WIN_SIZE)
+            return 0;
+        else
+       return countString(s.replace(sign.getSimbol(), 'P'));
 
     }
 
-    private String checkHorizontal(int x){
+    private String checkHorizontal(){
 
         char[] combo = new char[FIELD_SIZE];
         for (int y = 0; y<FIELD_SIZE; y++){
-           combo[y] = field.field[x][y].getSimbol();
+           combo[y] = field.field[playerX][y].getSimbol();
         }
         new String(combo);
         return new String(combo);
     }
 
-    private String checkVertical(int y){
+    private String checkVertical(){
         char[] combo = new char[FIELD_SIZE];
 
 
         for (int x = 0; x<FIELD_SIZE; x++){
-            combo[x] = field.field[x][y].getSimbol();
+            combo[x] = field.field[x][playerY].getSimbol();
 
             }
         return new String(combo);
     }
-    private String checkDiagonalDown(int x, int y){
+    private String checkDiagonalDown(){
         String diagonalCheck;
-        if (y > x) {
-            diagonalCheck = checkDiagonalDownRight(y - x);
+        if (playerY > playerX) {
+            diagonalCheck = checkDiagonalDownRight(playerY - playerX);
         } else {
-           diagonalCheck = checkDiagonalDownLeft(x - y);
+           diagonalCheck = checkDiagonalDownLeft(playerX - playerY);
         }
         return diagonalCheck;
     }
 
     private String checkDiagonalDownLeft(int number){
         char[] combo = new char[FIELD_SIZE];
-        for (int x  = 0; x<FIELD_SIZE; x++){
+        for (int index  = 0; index<FIELD_SIZE; index++){
 
-            if (x+number<FIELD_SIZE){
-                combo[x] = field.field[x+number][x].getSimbol();
+            if (index+number<FIELD_SIZE){
+                combo[index] = field.field[index+number][index].getSimbol();
             }
         }
         return new String(combo);
@@ -93,20 +110,20 @@ public class MoveWeightChecker {
 
     private String checkDiagonalDownRight(int number){
         char[] combo = new char[FIELD_SIZE];
-        for (int x  = 0; x<FIELD_SIZE; x++){
-            if (x+number<FIELD_SIZE){
-                combo[x] = field.field[x][x+number].getSimbol();
+        for (int index  = 0; index<FIELD_SIZE; index++){
+            if (index+number<FIELD_SIZE){
+                combo[index] = field.field[index][index+number].getSimbol();
         }
         }
             return new String(combo);
     }
 
-    private String checkDiagonalUp(int x, int y){
+    private String checkDiagonalUp(){
         String diagonalCheck;
-        if ((x+y) > FIELD_LAST) {
-            diagonalCheck = checkDiagonalUpRight((x + y) - FIELD_LAST);
+        if ((playerX + playerY) > FIELD_LAST) {
+            diagonalCheck = checkDiagonalUpRight((playerX + playerY) - FIELD_LAST);
         } else {
-            diagonalCheck = checkDiagonalUpLeft(x + y);
+            diagonalCheck = checkDiagonalUpLeft(playerX + playerY);
         }
         return diagonalCheck;
     }
@@ -114,13 +131,9 @@ public class MoveWeightChecker {
 
     private  String checkDiagonalUpRight(int number){
         char[] combo = new char[FIELD_SIZE];
-        for (int x  = 0; x<=FIELD_SIZE; x++){
-            if (number+x<FIELD_SIZE){
-                combo[x] = field.field[FIELD_LAST - x][x+number].getSimbol();
-                //  System.out.println("!!!! field "+field[FIELD_LAST - x][x+number]+" on+" +(FIELD_LAST - x)+" x "+(x+number)+" y");
-                //  System.out.println("!!!! last one is "+lastDiagonalSign+" progression is "+currentDiagonalSignsNumber);
-
-
+        for (int index  = 0; index<=FIELD_SIZE; index++){
+            if (number+index<FIELD_SIZE){
+                combo[index] = field.field[FIELD_LAST - index][index+number].getSimbol();
             }
         }
         return new String(combo);
@@ -128,9 +141,9 @@ public class MoveWeightChecker {
 
     private  String checkDiagonalUpLeft(int number){
         char[] combo = new char[FIELD_SIZE];
-        for (int x  = 0; x<=number; x++){
-            if (number-x>=0){
-                combo[x] = field.field[x][number-x].getSimbol();
+        for (int index  = 0; index<=number; index++){
+            if (number-index>=0){
+                combo[index] = field.field[index][number-index].getSimbol();
             }
         }
         return new String(combo);
