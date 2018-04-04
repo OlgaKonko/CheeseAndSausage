@@ -6,10 +6,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
 import com.olga_kondratenko.cheeseandsausage.env.Environment;
-import com.olga_kondratenko.cheeseandsausage.ii.neiroii.education.EducationData;
 
 import static com.olga_kondratenko.cheeseandsausage.constants.GameModes.CvC;
-import static com.olga_kondratenko.cheeseandsausage.constants.GameModes.CvCE;
 import static com.olga_kondratenko.cheeseandsausage.constants.GameModes.PvC;
 import static com.olga_kondratenko.cheeseandsausage.constants.GameModes.PvP;
 import static com.olga_kondratenko.cheeseandsausage.game.game_data.Statistic.all;
@@ -48,15 +46,4 @@ public class MenuActivity extends AppCompatActivity {
        // finish();
     }
 
-    public void educateII(View view) {
-        Intent intent = new Intent(this, EducationActivity.class);
-        if (view.getId()== R.id.new_education_button){
-            EducationData.need_new_education = true;
-            }
-        Environment.gameMode = CvCE;
-        wins =0;
-        loses =0;
-        all =0;
-        startActivity(intent);
-    }
 }

@@ -1,8 +1,5 @@
 package com.olga_kondratenko.cheeseandsausage.game;
 
-import com.olga_kondratenko.cheeseandsausage.ii.II;
-import com.olga_kondratenko.cheeseandsausage.ii.NeiroII;
-import com.olga_kondratenko.cheeseandsausage.ii.RandomII;
 import com.olga_kondratenko.cheeseandsausage.ii.WeightsII;
 import com.olga_kondratenko.cheeseandsausage.model.Coordinates;
 

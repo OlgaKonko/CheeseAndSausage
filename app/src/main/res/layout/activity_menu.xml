@@ -7,18 +7,6 @@
     tools:context="com.olga_kondratenko.cheeseandsausage.MenuActivity">
 
     <Button
-        android:id="@+id/new_education_button"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginTop="4dp"
-        android:background="@drawable/empty"
-        android:contentDescription="@string/education_button"
-        android:onClick="educateII"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
         android:id="@+id/pvp_button"
         android:layout_width="250dp"
         android:layout_height="wrap_content"
@@ -81,17 +69,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/emblem" />
-
-    <Button
-        android:id="@+id/education_button"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginTop="8dp"
-        android:background="@drawable/empty"
-        android:contentDescription="@string/education_button"
-        android:onClick="educateII"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/new_education_button" />
 
 </android.support.constraint.ConstraintLayout>

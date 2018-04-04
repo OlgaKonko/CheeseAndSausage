@@ -3,8 +3,6 @@ package com.olga_kondratenko.cheeseandsausage.game;
 import android.os.CountDownTimer;
 
 import com.olga_kondratenko.cheeseandsausage.ii.II;
-import com.olga_kondratenko.cheeseandsausage.ii.NeiroII;
-import com.olga_kondratenko.cheeseandsausage.ii.RandomII;
 import com.olga_kondratenko.cheeseandsausage.ii.WeightsII;
 import com.olga_kondratenko.cheeseandsausage.model.Coordinates;
 
@@ -20,9 +18,9 @@ import static com.olga_kondratenko.cheeseandsausage.game.game_data.Moves.current
 public class CvCGame extends Game{
     private WeightsII firstIi;
     private WeightsII secondIi;
-    Coordinates move;
-    boolean gameContinue = true;
-    boolean firstPlayerTurn = true;
+    private Coordinates move;
+    private boolean gameContinue = true;
+    private boolean firstPlayerTurn = true;
 
     public CvCGame() {
         super();
@@ -55,7 +53,7 @@ public class CvCGame extends Game{
         }.start();
     }
 
-    public void makeWeightIIMove( WeightsII ii,  WeightsII anotherII, int expectedWinner){
+    private void makeWeightIIMove(WeightsII ii, WeightsII anotherII, int expectedWinner){
         currentMoves++;
         move = ii.makeMove();
         anotherII.setPlayerMove(move);
@@ -68,20 +66,6 @@ public class CvCGame extends Game{
 
     }
 
-    public void makeIIMove(II ii, int expectedWinner){
-        currentMoves++;
-        move = ii.makeMove();
-        view.showMove(move.x, move.y, ii.iiSign);
-        if (field.checkGameEnding()) {
-            winner = (field.getWinnerSign() != FREE) ? expectedWinner : DROW;
-            gameContinue =false;
-            if (winner != DROW){
-                ii.mutate();
-            }
-        }
-        firstPlayerTurn = !firstPlayerTurn;
-
-    }
     private void endGame(){
         if (winner == FIRST_PLAYER_WIN){
             wins++;

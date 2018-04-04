@@ -31,7 +31,7 @@ import static com.olga_kondratenko.cheeseandsausage.game.game_data.Statistic.los
 import static com.olga_kondratenko.cheeseandsausage.game.game_data.Statistic.wins;
 
 
-public class MainActivity extends Activity implements GameActivity{
+public class MainActivity extends Activity{
 
     Game game;
     public ImageView[][] buttons;
@@ -136,11 +136,6 @@ public class MainActivity extends Activity implements GameActivity{
         finish();}
     }
 
-    @Override
-    public void endGame() {
-    }
-
-    @Override
     public Context getContext() {
         return getBaseContext();
     }
@@ -159,7 +154,7 @@ public class MainActivity extends Activity implements GameActivity{
         }
     }
 
-    private ImageView createButton(int x, int y, int weight, TableRow row) {
+    private void createButton(int x, int y, int weight, TableRow row) {
         ImageView button = new ImageView(this);
         buttons[x][y] = button;
         button.setImageResource(R.drawable.empty_cell);
@@ -171,7 +166,6 @@ public class MainActivity extends Activity implements GameActivity{
         button.getLayoutParams().height = weight;
 
         button.setScaleType(ImageView.ScaleType.FIT_XY);
-        return button;
     }
 
     private int getTableSize() {
